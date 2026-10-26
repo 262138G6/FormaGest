@@ -27,9 +27,13 @@ pipeline {
 
         stage('Probar') {
             steps {
+                // Inyectamos la contraseña esperada por tu application.properties
+                withEnv(["POSTGRES_PASSWORD=1234"]) {}
+
                 // mvn test compila las pruebas y las ejecuta con Surefire.
                 // Si una prueba falla, Maven termina con error y esta etapa se pone en rojo.
                 bat 'mvn -B test'
+                }
             }
             // post define qué hacer cuando termina la etapa, según su resultado.
             post {
