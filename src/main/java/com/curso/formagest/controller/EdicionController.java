@@ -76,8 +76,8 @@ public class EdicionController {
 
 		Edicion edicionOriginal = edicionRepository.findById(id).get(); // Actualizar campos
 		edicionOriginal.setCurso(cursoRepository.findById(cursoId).get());
-		edicionOriginal.setInicio(edicion.getInicio());
-		edicionOriginal.setFin(edicion.getFin());
+		edicionOriginal.setFecha_inicio(edicion.getFecha_inicio());
+		edicionOriginal.setFecha_fin(edicion.getFecha_fin());
 		edicionOriginal.setPlazas(edicion.getPlazas());
 		edicionOriginal.setModalidad(edicion.getModalidad());
 
