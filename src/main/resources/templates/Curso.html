@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${curso.id != null} ? 'Editar Curso' : 'Nuevo Curso'">Formulario de Curso</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0" th:text="${curso.id != null} ? 'Modificar Curso' : 'Registrar Nuevo Curso'">Formulario</h3>
+        </div>
+        <div class="card-body">
+
+            <form th:action="@{/cursos/guardar}" th:object="${curso}" method="post" class="needs-validation">
+
+                <!-- Campo oculto para el ID (esencial para saber si es edición) -->
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="row">
+                    <!-- Código -->
+                    <div class="col-md-6 mb-3">
+                        <label for="codigo" class="form-label">Código del Curso</label>
+                        <input type="text" th:field="*{codigo}" class="form-control" th:classappend="${#fields.hasErrors('codigo')} ? 'is-invalid'" id="codigo" />
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}">Error de código</div>
+                    </div>
+
+                    <!-- Nombre -->
+                    <div class="col-md-6 mb-3">
+                        <label for="nombre" class="form-label">Nombre del Curso</label>
+                        <input type="text" th:field="*{nombre}" class="form-control" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'" id="nombre" />
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error de nombre</div>
+                    </div>
+                </div>
+
+                <!-- Descripción -->
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea th:field="*{descripcion}" class="form-control" th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid'" id="descripcion" rows="3"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error de descripción</div>
+                </div>
+
+                <div class="row">
+                    <!-- Horas -->
+                    <div class="col-md-6 mb-3">
+                        <label for="horas" class="form-label">Número de Horas</label>
+                        <input type="number" th:field="*{horas}" class="form-control" id="horas" min="1" />
+                    </div>
+
+                    <!-- Activo (Checkbox) -->
+                    <div class="col-md-6 mb-3 d-flex align-items-center pt-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="activo" th:field="*{activo}">
+                            <label class="form-check-label" for="activo">Curso Activo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="mt-4 text-end">
+                    <a th:href="@{/cursos}" class="btn btn-secondary me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Guardar Curso</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

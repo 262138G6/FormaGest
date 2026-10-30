@@ -23,9 +23,9 @@ public class Edicion {
 	@NotNull
 	private Curso curso;
 
-	private Date inicio;
+	private Date fecha_inicio;
 
-	private Date fin;
+	private Date fecha_fin;
 
 	@Min(1) // Plazas tienen que ser > 0
 	private int plazas;
@@ -33,6 +33,6 @@ public class Edicion {
 	private Modalidad modalidad;
 
 	@AssertTrue public boolean isValidRange() { // @AssertTrue para que el @Validate falle si el final no es posterior al inicio
-		return fin.compareTo(inicio) >= 0;
+		return fecha_fin.compareTo(fecha_inicio) >= 0;
 	}
 }
