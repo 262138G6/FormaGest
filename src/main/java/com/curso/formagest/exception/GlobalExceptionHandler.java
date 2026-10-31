@@ -19,12 +19,9 @@ import java.util.Map;
  * exception details.
  */
 @RestControllerAdvice(
-        basePackages = "com.curso.formagest.controller",
-        assignableTypes = {
-                com.curso.formagest.controller.AlumnoController.class
-        }
+        basePackages = "com.curso.formagest.controller"
 )
-public class AlumnoExceptionHandler {
+public class GlobalExceptionHandler {
 
     /**
      * Handles invalid student data received in POST or PUT requests.
@@ -57,6 +54,23 @@ public class AlumnoExceptionHandler {
                 .body(response);
     }
 
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidJson(
+            org.springframework.http.converter.HttpMessageNotReadableException exception) {
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("status", HttpStatus.BAD_REQUEST.value());
+        response.put("message", "El JSON enviado no es válido.");
+        response.put("errors", Map.of(
+                "request", "Comprueba los datos y los tipos de valores enviados."
+        ));
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(response);
+    }
+
+
     /**
      * Handles database constraint violations.
      *
@@ -74,7 +88,7 @@ public class AlumnoExceptionHandler {
         response.put("status", HttpStatus.CONFLICT.value());
         response.put(
                 "message",
-                "No se puede guardar el alumno por un conflicto de datos"
+                "No se puede completar la operación por un conflicto de datos."
         );
 
         return ResponseEntity

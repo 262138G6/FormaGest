@@ -1,7 +1,7 @@
-package com.curso.formagest.model;
+package com.curso.formagest.enums;
 
 public enum Modalidad {
 	ONLINE,
 	PRESENCIAL,
-	HIBRIDO
+	MIXTA
 }

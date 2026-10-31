@@ -45,6 +45,15 @@ public class EdicionController {
 		return edicionRepository.findAll();
 	}
 
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Edicion> getEdicionById(@PathVariable Long id) {
+		return edicionRepository.findById(id)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+	}
+
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Edicion> crear(@Valid @RequestBody Edicion edicion){

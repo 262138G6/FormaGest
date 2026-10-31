@@ -1,5 +1,6 @@
 package com.curso.formagest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -33,6 +34,7 @@ public class Curso {
 
 	private boolean activo;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "curso") // Atributo vinulado al atributo "curso" de Edicion. Si una edicion pertenece a un curso se añade a esta lista. Usado para buscar si un curso pertenece a una edición rapidamente
 	private List<Edicion> ediciones = new ArrayList<>();
 }
